@@ -1,0 +1,14 @@
+{
+  "name": "jex",
+  "version": "0.0.0",
+  "description": "simple bundler",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^20.0.4"
+  },
+  "author": "Mantulenko Nikolai <chist13p@gmail.com> (https://github.com/chist13)",
+  "license": "ISC"
+}
