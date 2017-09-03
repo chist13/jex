@@ -1,5 +1,5 @@
 {
-  "name": "jex",
+  "name": "jex-bundler",
   "version": "1.0.0",
   "description": "simple bundler",
   "main": "index.js",
