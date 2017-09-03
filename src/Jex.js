@@ -88,15 +88,15 @@ class Jex{
 	 * start gulp
 	 */
 	start(taskName) {
+		if (taskName) {
+			return this.gulp.start(taskName)
+		}
+
 		this._initial()
 
 		setTimeout(n => {
 			this._server()
 			this._watcher()
-
-			if (taskName) {
-				return this.gulp.start(taskName)
-			}
 
 			this.gulp.start(this.stack.map(e => e.taskName))
 		}, 0)
