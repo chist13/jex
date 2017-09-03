@@ -9,7 +9,7 @@ module.exports = {
 	name: ['sass', 'scss'],
 
 	handler(input, output) {
-		const fileNames = this.resolveSrc('**/*.{sass.scss}')
+		const fileNames = this.resolveSrc('**/*.{sass,scss}')
 
 		return this.task(fileNames, () => {
 			this.gulp.src(input)
