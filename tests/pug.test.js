@@ -1,6 +1,6 @@
 const app = require('../index')
 
-test('app registeres pug task', () => {
+test('app registeres a pug task', () => {
 	expect(app).toHaveProperty('pug')
 	expect(app).toHaveProperty('jade')
 })

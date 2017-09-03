@@ -15,10 +15,10 @@ module.exports = {
 			this.gulp.src(input)
 				.pipe(sass.sync({includePaths: path.join(__dirname, 'node_modules')}).on('error', this.notify.onError()))
 				.pipe(autoprefixer())
-				.pipe(this.thenProd(clean()))
-				.pipe(this.thenProd(rename(path => {path.extname = '.min.css'})))
+				.pipe(this.whenProd(clean()))
+				.pipe(this.whenProd(rename(path => {path.extname = '.min.css'})))
 				.pipe(this.gulp.dest(output))
-				.pipe(this.thenWatch(this.browserSync.stream()))
+				.pipe(this.whenWatch(this.browserSync.stream()))
 		}, 'sass')
 	}
 

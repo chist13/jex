@@ -1,6 +1,6 @@
 const app = require('../index')
 
-test('app registeres sass task', () => {
+test('app registeres a sass task', () => {
 	expect(app).toHaveProperty('sass')
 	expect(app).toHaveProperty('scss')
 })

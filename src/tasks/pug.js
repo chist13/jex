@@ -10,7 +10,7 @@ module.exports = {
 			this.gulp.src(input)
 				.pipe(pug({pretty: true}).on('error', this.notify.onError()))
 				.pipe(this.gulp.dest(output))
-				.pipe(this.thenWatch(this.browserSync.stream()))
+				.pipe(this.whenWatch(this.browserSync.stream()))
 		}, 'pug')
 	}
 

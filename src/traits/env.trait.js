@@ -1,11 +1,10 @@
-const helpers = require('../helpers')
-
 module.exports = {
 	_traitConstuctor() {
-		this._isProd = helpers.isProd()
-		this._isDev = helpers.isDev()
-		this._isTest = helpers.isTest()
-		this._isWatch = helpers.hasFlag('watch')
+		this._isProd = this._isEnv(['prod', 'production'])
+		this._isDev = this._isEnv(['dev', 'development'])
+		this._isTest = this._isEnv(['test', 'testing'])
+
+		this._isWatch = this._hasFlag('watch')
 
 		let array = []
 
@@ -20,19 +19,37 @@ module.exports = {
 		this.middleware('_server', this._isWatch)
 	},
 
-	thenProd(pipe) {
+	whenProd(pipe) {
 		return this.gulpIf(this._isProd, pipe)
 	},
 
-	thenDev(pipe) {
+	whenDev(pipe) {
 		return this.gulpIf(this._isDev, pipe)
 	},
 
-	thenTest(pipe) {
+	whenTest(pipe) {
 		return this.gulpIf(this._isTest, pipe)
 	},
 
-	thenWatch(pipe) {
+	whenWatch(pipe) {
 		return this.gulpIf(this._isWatch, pipe)
+	},
+
+	/**
+	 * determines if app running in specified mode
+	 *
+	 * @return Boolean
+	 */
+	_isEnv(envArray) {
+		return envArray.indexOf(process.env['NODE_ENV']) >= 0 || this._hasFlag(...envArray)
+	},
+
+	/**
+	 * checking if atleast one of arguments includes in flags array
+	 *
+	 * @return Boolean
+	 */
+	_hasFlag(...flagNames) {
+		return flagNames.some(flagName => process.argv.includes('--' + flagName))
 	}
 }
