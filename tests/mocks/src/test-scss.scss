@@ -1,0 +1,9 @@
+@mixin size($w, $h: $w) {
+	width: $w;
+	height: $w;
+}
+
+body {
+	display: flex;
+	@include size(70px);
+}
