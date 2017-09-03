@@ -35,8 +35,11 @@ class Jex{
 	 */
 	task(watch, cb, prefix = '') {
 		const taskName = `${prefix ? prefix + '-' : ''}task-${this.stack.length + 1}`
+		const taskNames = []
 
-		this.stack.push({taskName, watch})
+		taskNames.unshift(taskName)
+
+		this.stack.push({taskNames, watch})
 
 		this.gulp.task(taskName, cb)
 
@@ -98,7 +101,7 @@ class Jex{
 			this._server()
 			this._watcher()
 
-			this.gulp.start(this.stack.map(e => e.taskName))
+			this.gulp.start(this.stack.map(e => e.taskNames))
 		}, 0)
 
 		return this
@@ -111,7 +114,7 @@ class Jex{
 		return this.task(null, () => {
 			this.stack
 				.filter(e => e.watch != null)
-				.map(e => gulp.watch(e.watch, e.taskName))
+				.map(e => this.gulp.watch(e.watch, e.taskNames))
 		})
 	}
 
@@ -126,7 +129,7 @@ class Jex{
 				port: this.config.port
 			}
 		}
-		const userConfig = this.browserSyncConfig
+		const userConfig = this.config.browserSyncConfig
 
 		return this.task(null, () => {
 			this.browserSync.init(userConfig ? userConfig : defaultConfig)

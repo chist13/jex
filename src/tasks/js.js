@@ -21,6 +21,7 @@ module.exports = {
 				}))
 				.pipe(this.whenProd(rename(path => {path.extname = '.min.js'})))
 				.pipe(this.gulp.dest(output))
+				.pipe(this.whenWatch(this.browserSync.stream()))
 		}, 'js')
 	}
 
