@@ -18,7 +18,7 @@ module.exports = {
 						presets: 'es2015',
 						sourceMaps: false
 					})]
-				}))
+				}).on('error', this.notify.onError()))
 				.pipe(this.whenProd(rename(path => {path.extname = '.min.js'})))
 				.pipe(this.gulp.dest(output))
 				.pipe(this.whenWatch(this.browserSync.stream()))
