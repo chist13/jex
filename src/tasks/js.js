@@ -6,23 +6,23 @@ module.exports = {
 	name: ['js', 'javascript'],
 
 	handler(input, output) {
-		const fileNames = this.resolveSrc('**/*.js')
 		const isProd = this._isProd
 
-		return this.task(fileNames, () => {
+		const browserifyConfig = {
+			debug: !isProd,
+			transform: [babelify.configure({
+				minified: isProd,
+				presets: 'es2015',
+				sourceMaps: false
+			})]
+		}
+
+		return this.task('js', () => {
 			this.gulp.src(input)
-				.pipe(browserify({
-					debug: !isProd,
-					transform: [babelify.configure({
-						minified: isProd,
-						presets: 'es2015',
-						sourceMaps: false
-					})]
-				}).on('error', this.notify.onError()))
+				.pipe(browserify(browserifyConfig).on('error', this.notify.onError()))
 				.pipe(this.whenProd(rename(path => {path.extname = '.min.js'})))
 				.pipe(this.gulp.dest(output))
-				.pipe(this.whenWatch(this.browserSync.stream()))
-		}, 'js')
+		}, this.resolveSrc('**/*.js'))
 	}
 
 }

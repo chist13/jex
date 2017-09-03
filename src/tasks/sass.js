@@ -9,17 +9,14 @@ module.exports = {
 	name: ['sass', 'scss'],
 
 	handler(input, output) {
-		const fileNames = this.resolveSrc('**/*.{sass,scss}')
-
-		return this.task(fileNames, () => {
+		return this.task('sass', () => {
 			this.gulp.src(input)
 				.pipe(sass.sync({includePaths: path.join(__dirname, 'node_modules')}).on('error', this.notify.onError()))
 				.pipe(autoprefixer())
 				.pipe(this.whenProd(clean()))
 				.pipe(this.whenProd(rename(path => {path.extname = '.min.css'})))
 				.pipe(this.gulp.dest(output))
-				.pipe(this.whenWatch(this.browserSync.stream()))
-		}, 'sass')
+		}, this.resolveSrc('**/*.{sass,scss}'))
 	}
 
 }

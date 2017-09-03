@@ -1,7 +1,6 @@
 const gulp = require('gulp')
 const notify = require('gulp-notify')
 const gulpIf = require('gulp-if')
-const browserSync = require('browser-sync')
 
 class Jex{
 	/**
@@ -11,7 +10,6 @@ class Jex{
 		this.gulp = gulp
 		this.notify = notify
 		this.gulpIf = gulpIf
-		this.browserSync = browserSync
 
 		this.stack = []
 	}
@@ -33,13 +31,13 @@ class Jex{
 	/**
 	 * wrapper for registering new task on gulp
 	 */
-	task(watch, cb, prefix = '') {
+	task(prefix, cb, watch = null) {
 		const taskName = `${prefix ? prefix + '-' : ''}task-${this.stack.length + 1}`
-		const taskNames = []
 
-		taskNames.unshift(taskName)
-
-		this.stack.push({taskNames, watch})
+		this.stack.push({
+			taskNames: [taskName],
+			watch
+		})
 
 		this.gulp.task(taskName, cb)
 
@@ -76,15 +74,9 @@ class Jex{
 
 		const method = this[methodName]
 
-		this[methodName] = (...args) => {
-			const result = typeof cond === 'function'
-				? cond()
-				: cond
-
-			return result
-				? method.call(this, ...args)
-				: this
-		}
+		this[methodName] = (...args) => this.saveInvoke(cond)
+			? method.call(this, ...args)
+			: this
 	}
 
 	/**
@@ -98,7 +90,6 @@ class Jex{
 		this._initial()
 
 		setTimeout(n => {
-			this._server()
 			this._watcher()
 
 			this.gulp.start(this.stack.map(e => e.taskNames))
@@ -111,7 +102,7 @@ class Jex{
 	 * register watcher task on gulp
 	 */
 	_watcher() {
-		return this.task(null, () => {
+		return this.task('watcher', () => {
 			this.stack
 				.filter(e => e.watch != null)
 				.map(e => this.gulp.watch(e.watch, e.taskNames))
@@ -119,28 +110,10 @@ class Jex{
 	}
 
 	/**
-	 * register server task on gulp
-	 */
-	_server() {
-		const defaultConfig = {
-			server: {baseDir: this.config.baseDir},
-			port: this.config.port,
-			ui: {
-				port: this.config.port
-			}
-		}
-		const userConfig = this.config.browserSyncConfig
-
-		return this.task(null, () => {
-			this.browserSync.init(userConfig ? userConfig : defaultConfig)
-		}, 'server')
-	}
-
-	/**
 	 * register initial task on gulp for little feedback
 	 */
 	_initial() {
-		return this.task(null, () => this.notify('Well Done'), 'initial')
+		return this.task('initial', () => this.notify('Well Done'))
 	}
 
 }

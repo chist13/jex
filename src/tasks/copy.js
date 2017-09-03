@@ -42,10 +42,10 @@ module.exports = {
 		const prefix = partsCount(input)
 		const fileNames = stringToPath(input)
 
-		return this.task(fileNames, () => {
+		return this.task('copy', () => {
 			this.gulp.src(fileNames)
 				.pipe(copy(output, {prefix}))
-		}, 'copy')
+		}, fileNames)
 	}
 
 }

@@ -9,15 +9,19 @@ const sass = require('./src/tasks/sass')
 const pug = require('./src/tasks/pug')
 const js = require('./src/tasks/js')
 const copy = require('./src/tasks/copy')
+const server = require('./src/tasks/server')
 
+jex.trait(helpersTrait)
 jex.trait(envTrait)
 jex.trait(configTrait)
 jex.trait(limitsTrait)
-jex.trait(helpersTrait)
 
 jex.use(sass)
 jex.use(pug)
 jex.use(js)
 jex.use(copy)
+jex.use(server)
+
+jex.only('watch').server()
 
 module.exports = jex.start()

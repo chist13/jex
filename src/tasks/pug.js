@@ -4,14 +4,11 @@ module.exports = {
 	name: ['pug', 'jade'],
 
 	handler(input, output) {
-		const fileNames = this.resolveSrc('**/*.{pug,jade}')
-
-		return this.task(fileNames, () => {
+		return this.task('pug', () => {
 			this.gulp.src(input)
 				.pipe(pug({pretty: true}).on('error', this.notify.onError()))
 				.pipe(this.gulp.dest(output))
-				.pipe(this.whenWatch(this.browserSync.stream()))
-		}, 'pug')
+		}, this.resolveSrc('**/*.{pug,jade}'))
 	}
 
 }
