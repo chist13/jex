@@ -1,4 +1,4 @@
-const app = require('../index')
+const app = require('../../index')
 
 test('it has config', () => {
 	expect(app.config).not.toBeUndefined()

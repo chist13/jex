@@ -1,4 +1,4 @@
-const app = require('../index')
+const app = require('../../index')
 
 test('app has except method', () => {
 	expect(typeof app.except === 'function').toBeTruthy()

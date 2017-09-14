@@ -1,6 +1,6 @@
 {
   "name": "jex-bundler",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "simple bundler",
   "main": "index.js",
   "scripts": {
