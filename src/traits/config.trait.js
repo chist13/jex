@@ -12,6 +12,10 @@ module.exports = {
 		return this._setConfigProperty('browserSyncConfig', config)
 	},
 
+	proxy(proxy) {
+		return this._setConfigProperty('browserSyncConfig', {proxy})
+	},
+
 	src(path) {
 		return this._setConfigProperty('src', path)
 	},
