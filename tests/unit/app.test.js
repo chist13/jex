@@ -32,7 +32,7 @@ test('it can be extended by a trait', () => {
 	expect(app.testProperty).toBeUndefined()
 
 	app.trait({
-		_traitConstuctor() {
+		constructor() {
 			this.testProperty = 'test working'
 		},
 		testMethod() {}

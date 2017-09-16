@@ -1,5 +1,5 @@
 module.exports = {
-	_traitConstuctor() {
+	constructor() {
 		this._isProd = this._isEnv(['prod', 'production'])
 		this._isDev = this._isEnv(['dev', 'development'])
 		this._isTest = this._isEnv(['test', 'testing'])

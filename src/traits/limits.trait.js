@@ -1,5 +1,5 @@
 module.exports = {
-	_traitConstuctor() {
+	constructor() {
 		this._limits = {type: '', array: []}
 
 		this.middleware('task', () => this._shouldProceed())

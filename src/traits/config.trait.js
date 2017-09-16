@@ -1,5 +1,5 @@
 module.exports = {
-	_traitConstuctor() {
+	constructor() {
 		this.config = {
 			srcDir: 'src',
 			baseDir: 'public',

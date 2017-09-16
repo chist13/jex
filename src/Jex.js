@@ -2,7 +2,7 @@ const gulp = require('gulp')
 const notify = require('gulp-notify')
 const gulpIf = require('gulp-if')
 
-class Jex{
+module.exports = class Jex{
 	/**
 	 * creates an instance of class
 	 */
@@ -18,12 +18,24 @@ class Jex{
 	 * extends class with trait's feature
 	 */
 	trait(trait, ...props) {
-		Object.assign(this, trait)
+		let traitConstructor = () => {}
 
-		if (this.hasOwnProperty('_traitConstuctor')) {
-			this._traitConstuctor(...props)
-			delete this._traitConstuctor
+		for (const methodName in trait) {
+			const method = trait[methodName]
+
+			if (methodName == 'constructor') {
+				traitConstructor = method
+				continue
+			}
+
+			if (this.hasOwnProperty(methodName)) {
+				throw new Error(`trait: detected collision with ${methodName} method`)
+			}
+
+			this[methodName] = method
 		}
+
+		traitConstructor.call(this, ...props)
 
 		return this
 	}
@@ -117,5 +129,3 @@ class Jex{
 	}
 
 }
-
-module.exports = new Jex

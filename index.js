@@ -1,4 +1,4 @@
-const jex = require('./src/Jex')
+const Jex = require('./src/Jex')
 
 const envTrait = require('./src/traits/env.trait')
 const configTrait = require('./src/traits/config.trait')
@@ -10,6 +10,8 @@ const pug = require('./src/tasks/pug')
 const js = require('./src/tasks/js')
 const copy = require('./src/tasks/copy')
 const server = require('./src/tasks/server')
+
+const jex = new Jex
 
 jex.trait(helpersTrait)
 jex.trait(envTrait)
