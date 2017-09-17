@@ -1,11 +1,7 @@
 const app = require('../../index')
 require('../utilits/functions')
 
-const result = `(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-'use strict';var _testModule=require('./test-module');var _testModule2=_interopRequireDefault(_testModule);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var foo=_testModule2.default;
-},{"./test-module":2}],2:[function(require,module,exports){
-"use strict";Object.defineProperty(exports,"__esModule",{value:true});var func=function func(){};exports.default=func;
-},{}]},{},[1])`
+const result = `!function e(r,t,n){function u(f,i){if(!t[f]){if(!r[f]){var c="function"==typeof require&&require;if(!i&&c)return c(f,!0);if(o)return o(f,!0);throw new Error("Cannot find module '"+f+"'")}var l=t[f]={exports:{}};r[f][0].call(l.exports,function(e){var t=r[f][1][e];return u(t||e)},l,l.exports,e,r,t,n)}return t[f].exports}for(var o="function"==typeof require&&require,f=0;f<n.length;f++)u(n[f]);return u}({1:[function(e,r,t){"use strict";(function(e){return e&&e.__esModule?e:{default:e}})(e("./test-module")).default},{"./test-module":2}],2:[function(e,r,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});t.default=function(){}},{}]},{},[1]);`
 
 test('it can compile modular es6 into es5', done => {
 	app._isProd = true
