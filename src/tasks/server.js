@@ -6,7 +6,7 @@ module.exports = {
 	name: ['server'],
 
 	handler(input, output) {
-		const resolve = this.resolvePublic
+		const resolve = this.resolvePublic.bind(this)
 
 		return this.task('server', () => {
 			// config
