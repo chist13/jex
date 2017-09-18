@@ -17,7 +17,7 @@ module.exports = {
 	},
 
 	src(path) {
-		return this._setConfigProperty('src', path)
+		return this._setConfigProperty('srcDir', path)
 	},
 
 	serve(dir) {

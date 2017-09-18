@@ -6,6 +6,8 @@ module.exports = {
 	name: ['server'],
 
 	handler(input, output) {
+		const resolve = this.resolvePublic
+
 		return this.task('server', () => {
 			// config
 			const defaultConfig = {
@@ -15,15 +17,15 @@ module.exports = {
 			const userConfig = this.config.browserSyncConfig
 
 			// injecting css
-			this.gulp.watch('public/**/*.css', () => {
+			this.gulp.watch(resolve('**/*.css'), () => {
 				this.gulp
-					.src('public/**/*.css')
+					.src(resolve('**/*.css'))
 					.pipe(browserSync.stream())
 			})
 
 			// reload browsers
 			this.gulp
-				.watch(['public/**/*.*', '!public/**/*.css'])
+				.watch([resolve('**/*.*'), '!' + resolve('**/*.css')])
 				.on('change', browserSync.reload)
 
 			// start server

@@ -8,7 +8,7 @@ test('user can set src directory', () => {
 	const path = 'resourses'
 	app.src(path)
 
-	expect(app.config.src).toBe(path)
+	expect(app.config.srcDir).toBe(path)
 })
 
 test('user can set serve directory', () => {
